@@ -1,0 +1,156 @@
+﻿
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.card-subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #6c757d;
+}
+
+.card-text {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.col-lg-3,
+.col-md-4,
+.col-sm-6 {
+    padding: 0 10px;
+    margin-bottom: 20px;
+}
+
+.card-body form {
+    display: inline-block;
+}
+
+.card-body button {
+    margin-left: 1rem;
+}
+
+.delete-btn {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .delete-btn:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+
+/*Model  Popup*/
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.modal-header {
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.btn {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    margin-right: 1rem;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+    .btn-danger:hover {
+        background-color: #c82333;
+        border-color: #bd2130;
+    }
+
+.book-thumbnail {
+    margin-top: 1rem;
+}
+
+    .book-thumbnail img {
+        display: inline-block;
+        width: 150px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .book-thumbnail .book-title {
+        margin-top: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+    }
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 500px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .modal-dialog {
+        max-width: 700px;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .modal-dialog {
+        max-width: 900px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .modal-dialog {
+        max-width: 1100px;
+    }
+}
+
+.book-thumbnail img {
+    max-width: 100%;
+    height: auto;
+}

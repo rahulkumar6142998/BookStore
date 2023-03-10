@@ -1,0 +1,119 @@
+﻿.navbar {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    height: 70px;
+    padding: 0;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #333;
+}
+
+.navbar-nav .nav-item {
+    position: relative;
+}
+
+.nav-link {
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    transition: all .3s ease;
+}
+
+    .nav-link:hover {
+        color: #007bff;
+    }
+
+.dropdown-menu {
+    border: none;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    border-radius: 0;
+    transition: all .3s ease;
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+    .dropdown-menu.show {
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align: .3em;
+    content: "";
+    border-top: .4em solid;
+    border-right: .4em solid transparent;
+    border-bottom: 0;
+    border-left: .4em solid transparent;
+}
+@media screen and (max-width: 768px) {
+    .dropdown-item {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-nav .nav-item {
+        position: static;
+    }
+
+    .dropdown-menu {
+        transform: translateX(-50%);
+        left: 50%;
+        top: calc(100% + 10px);
+    }
+
+    .navbar-toggler {
+        margin: 0 10px 0 0;
+    }
+}
+
+
+/*Effects*/
+.navbar-nav > li > a {
+    background-color: transparent;
+    transition: background-color 0.2s ease-out;
+}
+
+    .navbar-nav > li > a:hover {
+        background-color: #f8f9fa;
+    }
+.navbar-nav > li > a {
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s ease-out;
+}
+
+    .navbar-nav > li > a:hover {
+        border-bottom-color: #007bff;
+    }
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+}
