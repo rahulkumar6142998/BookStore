@@ -4,7 +4,13 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Google.Apis.Books.v1;
+using Google.Apis.Books.v1.Data;
+using Google.Apis.Services;
 using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
+using BookStore.Models.API;
 
 namespace BookStore.Services
 {
@@ -13,12 +19,15 @@ namespace BookStore.Services
         private readonly IMongoCollection<Admin> _admins;
         private readonly IMongoCollection<BookModel> _books;
 
-        public AdminService(IDataConnection dataConnection)
+        private readonly HttpClient _httpClient;
+
+        public AdminService(IDataConnection dataConnection, IHttpClientFactory httpClientFactory)
         {
             var client = new MongoClient(dataConnection.ConnectionString);
             var database = client.GetDatabase(dataConnection.DatabaseName);
             _admins = database.GetCollection<Admin>("Admin");
             _books = database.GetCollection<BookModel>("Books");
+            _httpClient = httpClientFactory.CreateClient();
         }
 
         public Admin validateCredential(Admin adminLoginModel)
@@ -82,5 +91,25 @@ namespace BookStore.Services
             }
         }
 
+        public VolumeInfoModel GetBookByIsbn(string isbn)
+        {
+            var response = _httpClient.GetAsync($"https://www.googleapis.com/books/v1/volumes?q=isbn:{isbn}").Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = response.Content.ReadAsStringAsync().Result;
+                var result = JsonConvert.DeserializeObject<BookApiResponseModel>(content);
+
+                if (result.TotalItems > 0)
+                {
+                    return result.Items[0].VolumeInfo;
+                }
+            }
+
+            return null;
+        }
     }
+
+
 }
+

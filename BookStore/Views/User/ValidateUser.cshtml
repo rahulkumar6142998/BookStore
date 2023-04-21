@@ -1,0 +1,65 @@
+﻿@model BookStore.Models.UserRegistrationModel
+<link href="~/css/ValidateUser.css" rel="stylesheet" />
+
+
+<div class="card" style="border-radius: 15px; width: 22rem; height: 13rem; ">
+    <div class="card-body p-5">
+
+        <h5 class="card-title text-center">Account Verification</h5>
+        <form class="form-signin" asp-controller="User" asp-action="ValidateUser">
+            <div class="form-label-group">
+                 <input type="hidden" id="email" readonly="readonly" asp-for="Email" style="text-align: center;font-size:larger; display: none;" align="center" value="" class="form-control">
+            </div>
+
+            <div class="form-label-group">
+                <input type ="hidden" id="name" readonly="readonly" asp-for="FirstName" style="text-align: center;font-size:larger;" align="center" value="" class="form-control">
+            </div>
+
+
+            <button class="btn btn-lg  btn-block text-uppercase submit" type="submit">Verify</button>
+        </form>
+    </div>
+</div>
+
+<div id="popup">
+    <div class="popup-content">
+        @if (ViewBag.UpdateMsg == 0)
+        {
+
+            <p>Your Email Is Sucessfully Verified. Please Login </p>
+            <form asp-action="Registration" asp-controller="User" method="get">
+                <div><button type="submit" class="btn btn-success">OK</button></div>
+            </form>
+        }
+        else if (ViewBag.UpdateMsg > 0)
+        {
+            <p>Your Email Is Already Verified. Please Login </p>
+            <form asp-action="Registration" asp-controller="User" method="get">
+                <div><button type="submit" class="btn btn-success">OK</button></div>
+            </form>
+        }
+        else
+        {
+            <p>Something went wrong </p>
+            <form asp-action="Registration" asp-controller="User" method="get">
+                <div><button type="submit" class="btn btn-success">OK</button></div>
+            </form>
+        }
+
+    </div>
+</div>
+
+
+<script>
+    let name = window.location.href;
+    const myArray = name.split(".");
+    document.getElementById("name").value = myArray[2]; //Make It 3 in Server
+    document.getElementById("email").value = myArray[1];//Make It 2 in Server
+
+</script>
+@if (ViewBag.UpdateMsg == 0)
+{
+    <script>
+        document.getElementById("popup").style.display = "block";
+    </script>
+}

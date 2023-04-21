@@ -1,0 +1,49 @@
+﻿@model LoginModel
+<link href="~/css/UserRegistration.css" rel="stylesheet" />
+
+
+<form asp-action="Login" asp-controller="User" method="post" enctype="multipart/form-data" class="form_wrapper" style="margin-top: 100px;">
+
+    <div class="title_container">
+        <h2>Login</h2>
+    </div>
+
+    <div class="input_field">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="input_field">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="input_field">
+        <input type="submit" value="Register">
+    </div>
+</form>
+
+<div id="popup">
+    <div class="popup-content">
+        @if (ViewBag.UpdateMsg < 0)
+        {
+            <p>@ViewBag.ErrorMessage</p>
+        }
+        else
+        {
+            <p>E-Mail Already Registered. Please Enter Another E-Mail </p>
+        }
+        <form asp-action="Index" asp-controller="Home" method="get">
+            <div><button type="submit" class="btn btn-success">OK</button></div>
+        </form>
+    </div>
+</div>
+
+@if (ViewBag.UpdateMsg < 0)
+{
+    <script>
+            document.getElementById("popup").style.display = "block";
+    </script>
+}

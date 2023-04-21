@@ -1,19 +1,28 @@
-﻿
+﻿<!-- Add the following lines in your HTML file to include the necessary Font Awesome CSS and JavaScript files from a CDN -->
+@using Microsoft.AspNetCore.Http
+
+@{
+    var userId = Context.Session.GetString("userId");
+}
+
 <link href="~/css/Topnavbar.css" rel="stylesheet" />
 <header>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="#">BookStore</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand order-md-1" href="#">BookStore</a>
+        <button class="navbar-toggler order-md-2" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="collapse navbar-collapse order-md-3" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Home</a>
                 </li>
+                @if (userId != null)
+                {
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Privacy</a>
+                    <a class="nav-link" href="#">@userId</a>
                 </li>
+                }
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Dropdown
@@ -25,22 +34,44 @@
                     </div>
                 </li>
             </ul>
+            <form class="form-inline my-2 my-md-0 ml-auto order-lg-4" asp-controller="Home" asp-action="SearchBook" method="get">
+                <div class="input-group">
+                    <input class="form-control" type="text" name="query" placeholder="Search for books" aria-label="Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <ul class="navbar-nav ml-auto order-md-4">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-user"></i> Account
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-shopping-cart"></i> Cart <span class="badge badge-pill badge-danger">2</span>
+                    </a>
+                </li>
+            </ul>
+
         </div>
     </nav>
-
 </header>
 
-@section Script{ 
-<script>
-    $(window).scroll(function () {
-        var scroll = $(window).scrollTop();
+@section Script{
+    <script>
+        $(window).scroll(function () {
+            var scroll = $(window).scrollTop();
 
-        if (scroll >= 50) {
-            $(".navbar").addClass("shadow-sm");
-        } else {
-            $(".navbar").removeClass("shadow-sm");
-        }
-    });
+            if (scroll >= 50) {
+                $(".navbar").addClass("shadow-sm");
+            } else {
+                $(".navbar").removeClass("shadow-sm");
+            }
+        });
 
-</script>
+    </script>
 }

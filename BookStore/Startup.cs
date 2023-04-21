@@ -28,14 +28,27 @@ namespace BookStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddHttpClient();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+         
+            services.AddScoped<IAdminService, AdminService>();
             services.Configure<DataConnection>(Configuration.GetSection(nameof(DataConnection)));
             services.AddSingleton<IDataConnection>(sp => sp.GetRequiredService<IOptions<DataConnection>>().Value);
             services.AddSingleton<AdminService>();
+            services.AddSingleton<HomeService>();
+            services.AddSingleton<BookDetailService>();
+            services.AddSingleton<UserService>();
+            services.AddSingleton<CartService>();
             services.Configure<IISServerOptions>(options =>
             {
                 options.AllowSynchronousIO = true;
+            });
+            services.AddSession(options =>
+            {
+                // Set a short timeout for testing purposes
+                options.IdleTimeout = TimeSpan.FromSeconds(120);
             });
 
             services.Configure<FormOptions>(options =>
@@ -62,6 +75,8 @@ namespace BookStore
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

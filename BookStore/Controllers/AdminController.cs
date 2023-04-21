@@ -45,7 +45,6 @@ namespace BookStore.Controllers
         {
            
 
-            
             return View( new BookModel());
         }
 
@@ -81,6 +80,30 @@ namespace BookStore.Controllers
             var books = adminService.GetAllBooks();
 
             return View(books);
+        }
+
+        public IActionResult SearchByISBN()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult SearchByISBN(string isbn)
+        {
+            if (!string.IsNullOrEmpty(isbn))
+            {
+                try
+                {
+                    var book = adminService.GetBookByIsbn(isbn);
+                    return View("BookDetails", book);
+                }
+                catch (Google.GoogleApiException ex)
+                {
+                    ModelState.AddModelError("isbn", "Error fetching book details: " + ex.Message);
+                }
+            }
+
+            return View();
         }
 
 

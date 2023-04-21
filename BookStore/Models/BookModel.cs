@@ -35,7 +35,7 @@ namespace BookStore.Models
             public string ISBN { get; set; }
 
             [BsonElement("image")]
-            public FormFile Image { get; set; }
+            public string Image { get; set; }
         
     }
 }
