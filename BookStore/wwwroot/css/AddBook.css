@@ -1,49 +1,9 @@
-﻿.bg-img {
-    position: relative;
-    overflow: hidden;
+﻿
+
+
+body {
+    background: linear-gradient(90deg, #C7C5F4, #776BCC);
 }
-
-    .bg-img::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(60deg, #65c5f6 0%, #fda085 100%);
-        animation: background-animation 20s ease infinite;
-        z-index: -1;
-    }
-
-@keyframes background-animation {
-    0% {
-        transform: translateX(-50%) translateY(-50%) rotate(0deg);
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateX(-50%) translateY(-50%) rotate(360deg);
-        opacity: 1;
-    }
-}
-
-
-
-
-@keyframes spin {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-
-/* Background Image */
-
-/* Card */
 .add-book-card {
     margin-top: 50px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -60,7 +20,7 @@
 .card-body {
     padding: 20px;
 }
-/* Form */
+ Form 
 .form-group {
     margin-bottom: 20px;
 }
@@ -69,18 +29,10 @@ label {
     font-weight: bold;
 }
 
-.custom-file-label::after {
-    content: "Choose file";
-}
 
-.custom-file-label::before {
-    content: "";
-}
 
-.custom-file-input:lang(en) ~ .custom-file-label::after {
-    content: "Browse";
-}
-/* Input Group */
+
+
 
 
 

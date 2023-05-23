@@ -1,4 +1,15 @@
 ﻿@model IEnumerable<BookStore.Models.BookModel>
+@using Microsoft.AspNetCore.Http
+@using BookStore.Common;
+@{
+    var userId = Context.Session.GetString("userName");
+    var encryptEmail = "";
+    if (userId != null)
+    {
+        encryptEmail = Base64.Base64Encode(userId);
+    }
+}
+
 <link href="~/css/AllBook.css" rel="stylesheet" />
 <div class="row">
     @foreach (var book in Model)
@@ -32,7 +43,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <form asp-action="Delete" asp-route-id="@book.Id" method="post">
+                        <form asp-action="Delete" asp-route-id="@book.Id"  asp-route-encryptEmail="@encryptEmail" method="post">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </div>
@@ -56,5 +67,5 @@
             });
         });
     </script>
-   
+
 }

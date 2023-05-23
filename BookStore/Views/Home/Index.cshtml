@@ -1,8 +1,163 @@
-﻿@{
+﻿@model IEnumerable<BookModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
+<link href="~/css/Home.css" rel="stylesheet" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="main_tag">
+                    <h1>WELCOME TO<br><span>BOOK STORE</span></h1>
+                    <p>
+                        Welcome to our Book Store, where you can explore a world of knowledge and imagination.
+                        Discover a wide range of books, from captivating novels to insightful non-fiction. Our collection
+                        is carefully curated to cater to every reader's taste and interest. Immerse yourself in the
+                        joy of reading and embark on unforgettable literary journeys.
+                    </p>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="main_img">
+                    <img src="image/table.png" class="img-fluid" alt="Main Image">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!--Services-->
+<div class="services">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="services_card highlight">
+                    <i class="fas fa-truck"></i>
+                    <h3>Fast Delivery</h3>
+                    <p>Get your orders delivered quickly and efficiently. We ensure timely and reliable delivery services.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="services_card highlight">
+                    <i class="fas fa-headset"></i>
+                    <h3>24 x 7 Services</h3>
+                    <p>We are available 24 hours a day, 7 days a week to assist you with any queries or support you may need.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="services_card highlight">
+                    <i class="fas fa-tag"></i>
+                    <h3>Best Deal</h3>
+                    <p>Discover the best deals and offers on a wide range of products. We strive to provide you with the most competitive prices.</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="services_card highlight">
+                    <i class="fas fa-lock"></i>
+                    <h3>Secure Payment</h3>
+                    <p>Rest assured that your payment details are secure. We utilize the latest encryption technology to safeguard your transactions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+<!--About-->
+
+<div class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="about_image">
+                    <img src="image/about.png" class="img-fluid" alt="About Image">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about_tag">
+                    <h1>About Us</h1>
+                    <p>
+                        We are a team of passionate individuals dedicated to providing exceptional products and services to our customers. With years of experience in the industry, we strive to deliver the highest quality and exceed customer expectations.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Books-->
+<div class="featured_books">
+    <h1 class="featured-books-heading">Featured Books</h1>
+    <div id="bookCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+       
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row justify-content-center">
+                    @foreach (var book in Model)
+                    {
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-10">
+                            <form method="get" asp-action="Details" asp-controller="BookDetail">
+                                <input type="hidden" name="BookId" value="@book.Id">
+                                <div class="card" onclick="submitForm()">
+                                    <img src="@book.Image" class="card-img-top" alt="Book 1">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-truncate">@book.Title</h5>
+                                        <p class="card-text text-truncate writer">@book.Author</p>
+                                        <div class="card-text text-truncate categories">@book.Genre</div>
+                                        <p class="card-text book_price">₹@book.Price</p>
+                                        <button type="submit" class="btn btn-primary btn-view">View</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+
+                    }
+                    <!-- Add more book cards here for the first slide -->
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+<script>
+    function submitForm() {
+        document.getElementById('bookForm').submit();
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "AllOrder";
+}
+
+@model IEnumerable<UserOrder>;
+<link href="~/css/Order.css" rel="stylesheet" />
+
+<div class="order-detail">
+    <div class="order-items">
+        <h2>Order Items</h2>
+        <div class="card-deck">
+            @foreach (var item in Model)
+            {
+                <div class="card card-3d">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">Price: &#8377; @item.TotalAmount</p>
+                        <p class="card-text">Date: @item.OrderDate</p>
+                       
+                        
+                            <span class="not-delivered">Not Delivered</span>
+                        
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+﻿<link href="~/css/ThankYou.css" rel="stylesheet" />
+<div class="container">
+    <div class="card">
+        <h1>Thank You!</h1>
+        <p>Your order has been received.</p>
+        <p>Your product will be delivered within 7-15 days.</p>
+        <div class="tick">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <form asp-action="Index" asp-controller="Home" method="GET">
+            <button type="submit">Go to Home Page</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1);
+    };
+</script>

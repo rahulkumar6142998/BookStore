@@ -1,0 +1,31 @@
+﻿.review-container {
+    margin-top: 20px;
+}
+
+.review {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.review__username {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.review__comment {
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.review__rating {
+    font-size: 14px;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.no-reviews {
+    margin-top: 20px;
+    text-align: center;
+    color: #999;
+}

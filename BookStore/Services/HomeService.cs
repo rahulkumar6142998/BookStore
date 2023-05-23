@@ -30,9 +30,18 @@ namespace BookStore.Services
             var searchResults = _books.Find(filter).ToList();
             return searchResults;
 
+        }
 
+        public List<BookModel> GetTop10Books()
+        {
+            var searchResults = _books.Find(Builders<BookModel>.Filter.Empty).Limit(8).ToList();
+            return searchResults;
+        }
 
-
+        public List<BookModel> GetAllBooks()
+        {
+            var searchResults = _books.Find(Builders<BookModel>.Filter.Empty).ToList();
+            return searchResults;
         }
     }
 }

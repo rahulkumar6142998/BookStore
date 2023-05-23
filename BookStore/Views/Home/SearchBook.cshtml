@@ -1,5 +1,10 @@
 ﻿@model IEnumerable<BookStore.Models.BookModel>
+@using Microsoft.AspNetCore.Http;
 
+@{
+    var userId = Context.Session.GetString("userId");
+}
+<link href="~/css/SearchBook.css" rel="stylesheet" />
 
 @if (ViewBag.Count > 0)
 {
@@ -9,8 +14,17 @@
 }
 else
 {
+
     <div>
-        <p>No Book Found </p>
+        <div class="card-notfound">
+            <div class="card-body-notfound">
+
+
+                <h6 class="card-subtitle mb-2 text-muted">No Book found </h6>
+                <p>Try to search with another key word</p>
+
+            </div>
+        </div>
     </div>
 }
 <div class="row">
@@ -19,19 +33,28 @@ else
 
         <div class="col-lg-4 col-sm-6 mb-4">
             <div class="card">
-                <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2073&q=80" class="card-img-top" alt="@book.Title" style="height: 150px; object-fit: cover;">
+                @if (book.Image != null)
+                {
+                    <img src="@book.Image" class="card-img-top" style="height: 150px; object-fit: cover;">
+                }
+                else
+                {
+                    <img src="~/css/book.jpg" class="card-img-top" style="height: 150px; object-fit: cover;">
+                }
                 <div class="card-body">
                     <h5 class="card-title" style="font-size: 1rem; font-weight: bold;">@book.Title</h5>
                     <h6 class="card-subtitle mb-2 text-muted" style="font-size: 0.9rem;">@book.Author</h6>
                     <p class="card-text" style="font-size: 0.8rem;">@book.Price</p>
-                    <button type="button" class="btn btn-primary btn-sm mr-2" style="font-size: 0.8rem;">Buy Now</button>
 
-                    <form method="post" asp-action="AddToCart" asp-controller="Cart">
-                        <input type="hidden" name="BookId" value="@book.Id">
-                        <button type="submit" class="btn btn-success btn-sm mr-2 addToCart" style="font-size: 0.8rem;">
-                            Add to Cart
-                        </button>
-                    </form>
+                    @if (userId != null)
+                    {
+                        <form method="post" asp-action="AddToCart" asp-controller="Cart">
+                            <input type="hidden" name="BookId" value="@book.Id">
+                            <button type="submit" class="btn btn-success btn-sm mr-2 addToCart" style="font-size: 0.8rem;">
+                                Add to Cart
+                            </button>
+                        </form>
+                    }
 
                     <form method="get" asp-action="Details" asp-controller="BookDetail">
                         <input type="hidden" name="BookId" value="@book.Id">
@@ -49,14 +72,14 @@ else
         var p1 = document.getElementById('BookId').value;
         console.log(p1);
         function redirectToDetailPage() {
-            
+
             $.ajax({
                 url: '/BookDetail/Details',
                 type: 'GET',
-                data: { bookId: p1},
+                data: { bookId: p1 },
                 success: function (response) {
                     // Handle successful response
-                   
+
                 },
                 error: function (xhr) {
                     // Handle error response

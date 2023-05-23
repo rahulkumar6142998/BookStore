@@ -1,0 +1,108 @@
+﻿@model IEnumerable<BookModel>
+@using Microsoft.AspNetCore.Http;
+
+@using BookStore.Common;
+
+<link href="~/css/Cart.css" rel="stylesheet" />
+<!--
+https://images.unsplash.com/photo-1593642532744-d377ab507dc8?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80
+-->
+
+@{
+    decimal totalPrice = 0;
+    var userId = Context.Session.GetString("userId");
+ 
+
+}
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <div class="product-card-cart-container">
+
+            <div class="container">
+
+                <div class="product-card-cart-container-inner mt-4 pt-4">
+
+                    <div class="product-card-cart">
+
+                        <a href="#" class="product-card-cart-link">
+                            <img src="@item.Image" alt="~/css/book.jpg" />
+                        </a>
+
+                        <div class="list-group list-group-flush product-card-cart-content">
+
+                            <div class="product-card-cart-content-name-price list-group-item">
+                                <div class="product-card-cart-content-name text-truncate"> @item.Title </div>
+                                <div class="product-card-cart-content-price"> <h4><span class="badge bg-dark">&#8377;@item.Price</span></h4> </div>
+                            </div>
+
+                            <div class="product-card-cart-content-quantity list-group-item">
+                                <div>Quantity: </div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="decrement-quantity btn btn-sm btn-outline-dark">-</button>
+                                    <input type="text" class="this-product-quantity form-control product-card-details-product-quantity" value="1" style="width: 36px; border-radius: 0!important;" disabled>
+                                    <button type="button" class="increment-quantity btn btn-sm btn-outline-dark">+</button>
+                                </div>
+                            </div>
+                            <div class="product-card-cart-content-size list-group-item">
+                                <div>Availability: </div>
+                                @* Out of stock  *@
+                                @if (item.QuantityLeft > 0)
+                                {
+                                    <h5><span class="badge bg-secondary">In Stock</span></h5>
+                                }
+                                else
+                                {
+                                    <h5><span class="badge bg-secondary">Out Of Stock</span></h5>
+                                }
+                            </div>
+                            <div class="product-card-cart-content-remove list-group-item">
+                                <form method="post" asp-action="Remove" asp-controller="Cart">
+                                    <input type="hidden" name="BookId" value="@item.Id">
+                                    <button type="submit" class="btn btn-outline-secondary">
+                                        REMOVE
+                                    </button>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            @{
+                totalPrice += item.Price;
+            }
+        </div>
+    }
+}
+
+
+<div class="total-price-card">
+    <div class="card">
+        <div class="card-body">
+            @if (Model != null)
+            {
+                <h5 class="card-title">Total Price</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Amount to be paid</h6>
+                <p class="card-text">&#8377;@totalPrice</p>
+                <form method="get" asp-action="Checkout" asp-controller="Cart">
+                    <input type="hidden" name="price" value="@totalPrice">
+                    <button type="submit" class="btn btn-primary">
+                        Checkout
+                    </button>
+                </form>
+            }
+            else
+            {
+            <h6 class="card-subtitle mb-2 text-muted">Your Cart Is Empty</h6>
+            }
+        </div>
+    </div>
+</div>
+

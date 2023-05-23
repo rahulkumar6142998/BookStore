@@ -13,6 +13,7 @@ namespace BookStore.Services
         private readonly IMongoCollection<UserRegistrationModel> _userRegistration;
         private readonly IMongoCollection<LoginModel> _login;
         private readonly IMongoCollection<UserProfileModel> _userProfile;
+        private readonly IMongoCollection<Order> _order;
 
 
         public UserService(IDataConnection dataConnection)
@@ -23,6 +24,7 @@ namespace BookStore.Services
             _userRegistration = database.GetCollection<UserRegistrationModel>("UserRegistration");
             _login = database.GetCollection<LoginModel>("Login");
             _userProfile = database.GetCollection<UserProfileModel>("UserProfile");
+            _order = database.GetCollection<Order>("Order");
         }
 
         public UserRegistrationModel findMember(string email)
@@ -100,6 +102,29 @@ namespace BookStore.Services
             {
                 throw new Exception("Error in validateCredential" + ex.Message);
             }
+        }
+
+        public void InsertOrder(Order order)
+        {
+            try
+            {
+                _order.InsertOne(order);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in insertOrder" + ex.Message);
+            }
+
+        }
+
+        public List<Order> UserOrder(string userId)
+        {
+            var filter = Builders<Order>.Filter.Eq("items.UserId", userId);
+
+            // Execute the query and retrieve the matching orders
+            List<Order> userOrders = _order.Find(filter).ToList();
+            return userOrders;
+
         }
     }
 }

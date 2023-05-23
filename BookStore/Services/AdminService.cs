@@ -18,6 +18,8 @@ namespace BookStore.Services
     {
         private readonly IMongoCollection<Admin> _admins;
         private readonly IMongoCollection<BookModel> _books;
+        private readonly IMongoCollection<Order> _order;
+
 
         private readonly HttpClient _httpClient;
 
@@ -27,6 +29,7 @@ namespace BookStore.Services
             var database = client.GetDatabase(dataConnection.DatabaseName);
             _admins = database.GetCollection<Admin>("Admin");
             _books = database.GetCollection<BookModel>("Books");
+            _order = database.GetCollection<Order>("Order");
             _httpClient = httpClientFactory.CreateClient();
         }
 
@@ -107,6 +110,21 @@ namespace BookStore.Services
             }
 
             return null;
+        }
+
+        public bool FindBook(string isbn)
+        {
+            return _books.Find(book => book.ISBN == isbn).Any();
+        }
+
+        public List<Order> AllOrder()
+        {
+            var filter = Builders<Order>.Filter.Empty;
+
+           
+            List<Order> allOrders =_order.Find(filter).ToList();
+
+            return allOrders;
         }
     }
 

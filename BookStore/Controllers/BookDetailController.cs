@@ -1,4 +1,5 @@
-﻿using BookStore.Services;
+﻿using BookStore.Models;
+using BookStore.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,5 +23,29 @@ namespace BookStore.Controllers
             var book = _bookDetailService.GetBookById(BookId);
             return View("Details",book);
         }
+
+        [HttpPost]
+        public IActionResult SubmitReview(ReviewModel review)
+        {
+         
+            var id = review.BookId;
+
+            if (review.Comment != null)
+            {
+                // Validate the review and perform necessary checks
+                if (!ModelState.IsValid)
+                {
+
+                    _bookDetailService.Review(review);
+
+
+                }
+            }
+           
+
+            // Redirect the user to the book details page or show a success message
+            return RedirectToAction("Details", "BookDetail", new { BookId = review.BookId });
+        }
+
     }
 }

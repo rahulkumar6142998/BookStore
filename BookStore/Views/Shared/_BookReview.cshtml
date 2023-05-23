@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ReviewModel>
+@using BookStore.Models
+@using Microsoft.AspNetCore.Http
+@using BookStore.Common;
+@{
+    var userId = Context.Session.GetString("userId");
+    var encryptEmail = "";
+    if (userId != null)
+    {
+        encryptEmail = Base64.Base64Encode(userId);
+    }
+}
+<link href="~/css/Review.css" rel="stylesheet" />
+<!-- Display existing reviews -->
+
+@if (Model != null && Model.Any())
+{
+    <div class="review-container">
+        @foreach (var review in Model)
+        {
+            <div class="review">
+                <h4 class="review__username">@review.Username</h4>
+                <p class="review__comment">@review.Comment</p>
+                <div class="review__rating">Rating: @review.Rating</div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <h1 class="no-reviews">No Reviews</h1>
+}
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.rating-stars .star').click(function () {
+            var rating = $(this).index() + 1;
+            $('#Rating').val(rating);
+            $('.rating-stars .star').removeClass('selected');
+            $('.rating-stars .star').slice(0, rating).addClass('selected');
+        });
+    });
+
+</script>

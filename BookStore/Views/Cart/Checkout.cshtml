@@ -1,0 +1,107 @@
+﻿@model BookStore.Models.CheckoutModel;
+
+
+
+<div class="col-md-4 container bg-default">
+    <h4 class="my-4">Billing Address</h4>
+    <form method="post" asp-action="Checkout" asp-controller="Cart">
+        <input type="hidden" asp-for="Value" value="1">
+        <div class="form-row">
+            <div class="col-md-6 form-group">
+                <label for="firstname">First Name</label>
+                <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name" required>
+                <div class="invalid-feedback">Valid first name is required.</div>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="lastname">Last Name</label>
+                <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name" required>
+                <div class="invalid-feedback">Valid last name is required.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"></span>
+                </div>
+                <input type="number" class="form-control" asp-for="MobileNumber" placeholder="Mobile Number" required>
+                <div class="invalid-feedback">Mobile number is required.</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" asp-for="Email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" asp-for="Address" placeholder="1234 Main Street" required>
+            <div class="invalid-feedback">Please enter your shipping address.</div>
+        </div>
+        <div class="form-group">
+            <label for="address2">Address 2<span class="text-muted">(Optional)</span></label>
+            <input type="text" class="form-control" asp-for="Address2" placeholder="Flat No">
+        </div>
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label for="postcode">Postcode</label>
+                <input type="text" class="form-control" asp-for="Postcode" placeholder="Enter postcode" required pattern="[0-9]{6}" title="Please enter a 6-digit postcode">
+                <div class="invalid-feedback">Please enter a valid 6-digit postcode.</div>
+            </div>
+
+            <div class="col-md-4 form-group">
+                <label for="city">Country</label>
+                <select class="form-control" asp-for="City" required>
+                    <option value="">Choose...</option>
+                    <option>India</option>
+                </select>
+                <div class="invalid-feedback">Please provide a valid city.</div>
+            </div>
+            <div class="col-md-4 form-group">
+                <label for="state">State</label>
+                <select class="form-control" asp-for="State" required>
+                    <option value="">Choose...</option>
+                    <option value="Andhra Pradesh">Andhra Pradesh</option>
+                    <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                    <option value="Assam">Assam</option>
+                    <option value="Bihar">Bihar</option>
+                    <option value="Chhattisgarh">Chhattisgarh</option>
+                    <option value="Goa">Goa</option>
+                    <option value="Gujarat">Gujarat</option>
+                    <option value="Haryana">Haryana</option>
+                    <option value="Himachal Pradesh">Himachal Pradesh</option>
+                    <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                    <option value="Jharkhand">Jharkhand</option>
+                    <option value="Karnataka">Karnataka</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                    <option value="Maharashtra">Maharashtra</option>
+                    <option value="Manipur">Manipur</option>
+                    <option value="Meghalaya">Meghalaya</option>
+                    <option value="Mizoram">Mizoram</option>
+                    <option value="Nagaland">Nagaland</option>
+                    <option value="Odisha">Odisha</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="Rajasthan">Rajasthan</option>
+                    <option value="Sikkim">Sikkim</option>
+                    <option value="Tamil Nadu">Tamil Nadu</option>
+                    <option value="Telangana">Telangana</option>
+                    <option value="Tripura">Tripura</option>
+                    <option value="Uttar Pradesh">Uttar Pradesh</option>
+                    <option value="Uttarakhand">Uttarakhand</option>
+                    <option value="West Bengal">West Bengal</option>
+                </select>
+                <div class="invalid-feedback">State is required.</div>
+            </div>
+        </div>
+        <hr>
+        <hr>
+        <h4 class="mb-4">Payment</h4>
+        <div class="form-check">
+            <input type="radio" class="form-check-input" id="cod" name="payment-method" required>
+            <label for="cod" class="form-check-label">Cash on Delivery</label>
+        </div>
+        <hr class="mb-4">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to Checkout</button>
+    </form>
+</div>
+

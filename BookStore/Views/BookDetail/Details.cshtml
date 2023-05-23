@@ -1,39 +1,54 @@
 ﻿@model BookStore.Models.BookModel
+@using Microsoft.AspNetCore.Http;
+
 <link href="~/css/BookDetail.css" rel="stylesheet" />
 
-<div class="product-detail">
+@{
+    ViewData["bookId"] = Model.Id;
+    var userId = Context.Session.GetString("userId");
+
+}
+
+<div class="product-detail card">
     <div class="product-image">
-        <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2073&q=80" alt="@Model.Title">
+        <img src="@Model.Image" alt="@Model.Title">
     </div>
     <div class="product-info">
         <h1 class="product-title">@Model.Title</h1>
         <p class="product-author">by @Model.Author</p>
         <hr>
-        <p class="product-publisher"><strong>Publisher:</strong> Publisher</p>
-        <p class="product-isbn"><strong>ISBN:</strong> @*@Model.Isbn*@1234567896325415</p>
-        <p class="product-price"><strong>Price:</strong> $@Model.Price</p>
+        <p class="product-publisher"><strong>Publisher:</strong> @Model.Publisher</p>
+        <p class="product-publisher"><strong>Genre:</strong> @Model.Genre</p>
+        <p class="product-isbn"><strong>ISBN:</strong> @Model.ISBN</p>
+        <p class="product-price"><strong>Price:</strong> ₹@Model.Price</p>
         <div class="product-actions">
-            <button class="btn-buy-now">
-                <i class="fas fa-shopping-cart"></i> Buy Now
-            </button>
-            <button class="btn-add-to-cart">
-                <i class="fas fa-cart-plus"></i> Add to Cart
-            </button>
-            <button class="btn-add-to-wishlist">
-                <i class="fas fa-heart"></i> Wishlist Item
-            </button>
+
+            @if (userId != null)
+            {
+                <form  method="post" asp-action="AddToCart" asp-controller="Cart">
+                    <input type="hidden" name="BookId" value="@Model.Id">
+                    <button type="submit">
+                        <i class="fas fa-cart-plus"></i> Add to Cart
+                    </button>
+                </form>
+                
+            }
+
         </div>
         <hr>
         <p class="product-description">@Model.Description</p>
-        <h2 class="product-author-bio-heading">About the Author</h2>
-        <p class="product-author-bio">@*@Model.AuthorBio*@</p>
+
         <h2 class="product-reviews-heading">Customer Reviews</h2>
         <ul class="product-reviews">
-            <li>Not seeing what you expected here? Don't worry, your conversation data is preserved! Check back soon.</li>
-            @*@foreach (var review in Model.CustomerReviews)
-                {
-                    <li>@review</li>
-                }*@
+            <partial name="_BookReview" for="Reviews" />
         </ul>
+        @if (userId != null)
+        {
+            <ul>
+                <partial name="_Postreview" for="Review" />
+            </ul>
+        }
     </div>
 </div>
+
+

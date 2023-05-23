@@ -7,7 +7,7 @@
 
 @*<button onclick="openPopup()">Open Popup</button>*@
 
-<form asp-action="Registration" asp-controller="User" method="post" enctype="multipart/form-data" class="form_wrapper">
+@*<form asp-action="Registration" asp-controller="User" method="post" enctype="multipart/form-data" class="form_wrapper">
 
     <div class="title_container">
         <h2>Create your account</h2>
@@ -50,8 +50,55 @@
     <div class="input_field">
         <input type="submit" value="Register">
     </div>
-</form>
+</form>*@
 
+
+
+
+
+<div class="container log">
+    <div class="screen">
+        <div class="screen__content">
+            <form asp-action="Registration" asp-controller="User" method="post" enctype="multipart/form-data" class="form_wrapper">
+                <div class="login__fields input_field">
+                    <i class="login__icon fas fa-user"></i>
+                    <input asp-for="FirstName" type="text" class="login__input form-control" placeholder="First Name">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="login__fields input_field">
+                    <i class="login__icon fas fa-user"></i>
+                    <input asp-for="LastName" type="text" class="login__input form-control" placeholder="LastName">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="login__fields input_field">
+                    <i class="login__icon fas fa-user"></i>
+                    <input asp-for="Email" type="email" class="login__input form-control" placeholder="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="login__fields input_field">
+                    <i class="login__icon fas fa-lock"></i>
+                    <input asp-for="Password" type="password" class="login__input form-control" placeholder="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="login__fields input_field">
+                    <i class="login__icon fas fa-lock"></i>
+                    <input asp-for="ConfirmedPassword" type="password" class="login__input form-control" placeholder="Confirm Password">
+                    <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+                </div>
+                <div class="input_fields">
+                    <input type="submit" value="Log In" class="button login__submit">
+                </div>
+            </form>
+
+        </div>
+        <div class="screen__background">
+            <span class="screen__background__shape screen__background__shape4"></span>
+            <span class="screen__background__shape screen__background__shape3"></span>
+            <span class="screen__background__shape screen__background__shape2"></span>
+            <span class="screen__background__shape screen__background__shape1"></span>
+        </div>
+    </div>
+</div>
 
 <div id="popup">
     <div class="popup-content">
@@ -69,7 +116,7 @@
     </div>
 </div>
 
-@if (ViewBag.SuccessMessage > 0)
+@if (ViewBag.AlreadyRegistered < 0)
 {
     <script>
             document.getElementById("popup").style.display = "block";

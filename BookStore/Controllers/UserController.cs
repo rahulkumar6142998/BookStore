@@ -332,7 +332,7 @@ namespace BookStore.Controllers
                         }
 
                     }
-                    
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -341,8 +341,56 @@ namespace BookStore.Controllers
                 }
                
             }
+            ViewBag.UpdateMsg = -1;
+            ViewBag.ErrorMessage = "Invalid User ID or Password";
             return View();
         }
 
+
+
+        [HttpGet]
+        public IActionResult Orders(string encryptEmail)
+        {
+            var user = HttpContext.Session.GetString("Id");
+            var o = _userService.UserOrder(user);
+
+            List<UserOrder> userOrder = new List<UserOrder>();
+            foreach (var order in o)
+            {
+                List<string> productTitles = order.Items.Products.Select(p => p.Title).ToList();
+                var totalTitles = productTitles.Count();
+
+                foreach (var title in productTitles)
+                {
+                    UserOrder userOrderItem = new UserOrder
+                    {
+
+                        OrderDate = order.OrderDate,
+                        Title =title,
+                        TotalAmount = order.TotalAmount
+                    };
+                    userOrder.Add(userOrderItem);
+                }
+              
+
+
+               
+            }
+
+            return View(userOrder);
+
+        }
+
+        [HttpGet]
+        public IActionResult LogOut()
+        {
+          
+            HttpContext.Session.Remove("userId");
+            HttpContext.Session.Remove("userName");
+            HttpContext.Session.Remove("Id");
+            HttpContext.Session.Clear();
+            
+            return RedirectToRoute(new { controller = "Home", action = "Index" });
+        }
     }
 }

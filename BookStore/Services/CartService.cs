@@ -60,6 +60,24 @@ namespace BookStore.Services
                 _cart.UpdateOne(c => c.UserId == userId, update);
             }
         }
+
+        public void DeleteBookFromCart(string bookId)
+        {
+            var update = Builders<CartModel>.Update.PullFilter(c => c.Products, p => p.Id == bookId);
+
+            _cart.UpdateMany(c => true, update);
+        }
+
+        public void ClearCart(string user)
+        {
+            var filter = Builders<CartModel>.Filter.Eq("UserId", user);
+            var cart = _cart.Find(filter).FirstOrDefault();
+            _cart.DeleteOne(filter);
+
+
+        }
+
+
     }
 
 }

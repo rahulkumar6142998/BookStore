@@ -1,29 +1,46 @@
 ﻿@model LoginModel
+@using Microsoft.AspNetCore.Http
+@using BookStore.Common;
+@{
+    var userId = Context.Session.GetString("userId");
+    var encryptEmail = "";
+    if (userId != null)
+    {
+        encryptEmail = Base64.Base64Encode(userId);
+    }
+}
+
 <link href="~/css/UserRegistration.css" rel="stylesheet" />
 
 
-<form asp-action="Login" asp-controller="User" method="post" enctype="multipart/form-data" class="form_wrapper" style="margin-top: 100px;">
+<div class="container log">
+    <div class="screen">
+        <div class="screen__content">
+            <form asp-action="Login" asp-controller="User" asp-route-encryptEmail="@encryptEmail" class="login form_wrapper" method="post" enctype="multipart/form-data">
+                <div class="login__field input_field">
+                    <i class="login__icon fas fa-user"></i>
+                    <input asp-for="Email" type="text" class="login__input form-control" placeholder="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="login__field input_field">
+                    <i class="login__icon fas fa-lock"></i>
+                    <input asp-for="Password" type="password" class="login__input form-control" placeholder="Password">
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="input_field">
+                    <input type="submit" value="Log In" class="button login__submit">
+                </div>
+            </form>
 
-    <div class="title_container">
-        <h2>Login</h2>
+        </div>
+        <div class="screen__background">
+            <span class="screen__background__shape screen__background__shape4"></span>
+            <span class="screen__background__shape screen__background__shape3"></span>
+            <span class="screen__background__shape screen__background__shape2"></span>
+            <span class="screen__background__shape screen__background__shape1"></span>
+        </div>
     </div>
-
-    <div class="input_field">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-
-    <div class="input_field">
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form-control" />
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-
-    <div class="input_field">
-        <input type="submit" value="Register">
-    </div>
-</form>
+</div>
 
 <div id="popup">
     <div class="popup-content">
@@ -44,6 +61,6 @@
 @if (ViewBag.UpdateMsg < 0)
 {
     <script>
-            document.getElementById("popup").style.display = "block";
+        document.getElementById("popup").style.display = "block";
     </script>
 }

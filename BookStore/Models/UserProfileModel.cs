@@ -21,7 +21,7 @@ namespace BookStore.Models
         [BsonElement("LastName")]
         public string LastName { get; set; }
 
-        //public Address Address { get; set; }
+        public Address Address { get; set; }
 
         public string Phone { get; set; }
 
@@ -29,6 +29,6 @@ namespace BookStore.Models
 
         //public List<CartItem> Cart { get; set; }
 
-        //public List<Order> Orders { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }
